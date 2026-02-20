@@ -1,0 +1,67 @@
+<%- include("./head") %>
+<nav class="bg-red-600 w-full">
+  <div class="relative max-w-7xl mx-auto px-6 py-4 flex items-center">
+
+    <!-- Centered Logo -->
+    <a href="/store" 
+       class="absolute left-1/2 -translate-x-1/2 text-white text-4xl font-bold">
+      Airbnb
+    </a>
+
+    <!-- Right Side Menu -->
+    <div class="flex space-x-6 ml-auto">
+      <% if(isLoggedIn){  %>
+        <a
+            href="/store/home"
+            class="font-semibold <%= currentPath.startsWith('/store/home') ? 'text-yellow-300 border-b-2 border-yellow-300' : 'text-white hover:text-red-100' %>">
+            Home
+          </a>
+        <% if(user?.userType === 'guest') { %>
+
+          
+
+          <a
+            href="/store/favourites"
+            class="font-semibold <%= currentPath.startsWith('/store/favourites') ? 'text-yellow-300 border-b-2 border-yellow-300' : 'text-white hover:text-red-100' %>">
+            Favourites
+          </a>
+
+          <a
+            href="/store/bookings"
+            class="font-semibold <%= currentPath.startsWith('/store/bookings') ? 'text-yellow-300 border-b-2 border-yellow-300' : 'text-white hover:text-red-100' %>">
+            Bookings
+          </a>
+
+        <% } else {  %>
+          <a
+            href="/host/home-list"
+            class="font-semibold <%= currentPath.startsWith('/host/home-list') ? 'text-yellow-300 border-b-2 border-yellow-300' : 'text-white hover:text-red-100' %>">
+            Host Home List
+          </a>
+
+          <a
+            href="/host/add-home"
+            class="font-semibold <%= currentPath.startsWith('/host/add-home') ? 'text-yellow-300 border-b-2 border-yellow-300' : 'text-white hover:text-red-100' %>">
+            Add-Home
+          </a>
+
+          
+
+        <% } %>
+      <% } %>
+
+      <% if(!isLoggedIn){ %>
+        <a href="/login" class="font-semibold text-white hover:text-red-100">
+          Login
+        </a>
+      <% } else { %>
+        <form action="/logout" method="POST">
+          <button type="submit" class="font-semibold text-white hover:text-red-100">
+            Logout
+          </button>
+        </form>
+      <% } %>
+    </div>
+
+  </div>
+</nav>

@@ -1,0 +1,54 @@
+<%- include('../partials/head') %>
+<body class="flex flex-col min-h-screen">
+  <%- include('../partials/navbar') %>
+
+  <div
+    class="mt-0 p-4 flex flex-col items-center justify-center text-center flex-1"
+  >
+    <h2 class="text-6xl font-bold text-gray-800 mb-4">Welcome to Airbnb</h2>
+    <p class="text-gray-600 text-lg">
+      <%= user?.userType ==='guest'? `Find your perfect stay and book amazing
+      homes around the world.`:`Turn your space into opportunity and welcome the
+      world to your home.` %>
+    </p>
+    <a
+      href="<%= user?.userType==='guest'?'/store/home' : '/host/home-list' %>"
+      class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition"
+      ><%= user?.userType==='guest'? 'Explore homes': 'Home-List' %></a
+    >
+  </div>
+
+  <!-- UPDATED FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 p-8">
+    <div
+      class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left mb-8"
+    >
+      <div>
+        <h3 class="text-lg font-bold text-white mb-4">About</h3>
+        <p class="text-sm">
+          Learn more about how Airbnb works and our mission to provide amazing
+          travel experiences.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white mb-4">Support</h3>
+        <ul class="text-sm space-y-2">
+          <li><a href="#" class="hover:text-white">Help Center</a></li>
+          <li><a href="#" class="hover:text-white">Contact Us</a></li>
+          <li><a href="#" class="hover:text-white">Safety</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white mb-4">Community</h3>
+        <ul class="text-sm space-y-2">
+          <li><a href="#" class="hover:text-white">Blog</a></li>
+          <li><a href="#" class="hover:text-white">News</a></li>
+          <li><a href="#" class="hover:text-white">Events</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 pt-8 text-center text-sm">
+      <p>&copy; 2026 Airbnb. All rights reserved.</p>
+    </div>
+  </footer>
+</body>

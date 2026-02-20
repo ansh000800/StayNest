@@ -1,0 +1,58 @@
+
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <div class="mt-8 p-8 flex flex-col items-center justify-center text-center">
+    <h2 class="text-4xl font-bold text-gray-800 mb-4">Your Favourite Homes</h2>
+    
+  </div>
+    <main class="p-8">
+  <h3 class="text-2xl font-semibold mb-4">Favourite Homes:</h3>
+
+  <% if (favouriteHomes && favouriteHomes.length > 0) { %>
+    
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% favouriteHomes.forEach(home => { %>
+        <li class="bg-white shadow-md rounded-lg p-4 border">
+          <div class="flex justify-between items-start mb-2">
+        <h4 class="text-xl font-bold text-red-600">
+          <%= home.houseName %>
+        </h4>
+
+        
+          </div>
+          <p class="text-gray-600">
+        Location: <%= home.location %>
+          </p>
+          <p class="text-gray-600">
+        Rent: ₹ <%= home.rent %>
+          </p>
+          <img src="/uploads/<%= home.image %>" 
+        class="mt-2 w-64 h-40 object-cover rounded shadow-lg border border-gray-300" />
+        <p class="text-yellow-600">
+        Rating:  ★<%= home.rating %>
+          </p>
+
+        <a href="/store/home/<%= home._id %>" class="mt-2 inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition">Details</a>
+        <form action="/store/delete-fav/<%=home._id%>" method="POST">
+          <button type="submit" class="mt-2 inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition">Delete</button>
+        </form>
+          
+        </li>
+      <% }) %>
+        </ul>
+
+    
+
+  <% } else { %>
+
+    <p class="text-gray-500">You have no favourite homes yet.</p>
+
+  <% } %>
+</main>
+
+  
+</body>
+
+</html>
