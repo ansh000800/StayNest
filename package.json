@@ -7,9 +7,10 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind": "npx tailwindcss -i ./views/input.css -o ./public/output.css --watch",
-    "start": "concurrently \"nodemon app.js\" \"npm run tailwind\""
+    "dev": "concurrently \"nodemon app.js\" \"npm run tailwind-watch\"",
+    "tailwind-watch": "tailwindcss -i ./input.css -o ./public/output.css --watch",
+    "build-css": "tailwindcss -i ./input.css -o ./public/output.css --minify",
+    "start": "node app.js"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.24",
