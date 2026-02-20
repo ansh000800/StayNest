@@ -4,10 +4,11 @@ const dns = require("dns");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
-const DB_Path =
-  "mongodb+srv://Anshul3122:Shyam3122@cluster0.kswgavn.mongodb.net/airbnb?appName=Cluster0";
+require("dotenv").config();
 
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
+const DB_Path = process.env.MONGO_URL;
 
 //importing router
 const { storeRouter } = require("./routes/storeRouter");
@@ -34,7 +35,7 @@ const store = new MongoDBStore({
 //global middlewares.
 app.use(
   session({
-    secret: "my secret key", // this is a secret key used to sign the session ID cookie. It should be a random string and kept secure in a production environment.
+    secret: process.env.SESSION_SECRET, // this is a secret key used to sign the session ID cookie. It should be a random string and kept secure in a production environment.
 
     resave: false, // this option forces the session to be saved back to the session store, even if it was never modified during the request. Setting it to false can help reduce unnecessary session saves.
 
@@ -76,14 +77,14 @@ app.use("/host", hostRouter);
 //404 page handling
 app.use(ErrorController);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose
-  .connect(DB_Path)
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("Connected to MongoDB successfully.");
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}/store`);
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
