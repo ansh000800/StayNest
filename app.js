@@ -21,6 +21,7 @@ const rootDir = require("./utils/pathUtils");
 
 const { ErrorController } = require("./controller/404Controller");
 const { default: mongoose } = require("mongoose");
+const { homePageController } = require("./controller/homePageController");
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.use((req, res, next) => {
 
 //router parsing use;
 app.use(authRouter);
+app.use(homePageController);
 app.use("/store", storeRouter);
 app.use("/host", (req, res, next) => {
   if (req.session.isLoggedIn) {
