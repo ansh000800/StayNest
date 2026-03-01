@@ -3,6 +3,13 @@ const User = require("../models/user");
 const path = require("path");
 const rootDir = require("../utils/pathUtils");
 
+exports.homePageController = (req, res, next) => {
+  console.log("session value", req.session);
+
+  res.render("store/index", {
+    pageTitle: "Airbnb",
+  });
+};
 exports.airbnbHomeController = async (req, res, next) => {
   try {
     const registeredHomes = await Home.find();

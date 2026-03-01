@@ -1,6 +1,7 @@
 const express = require("express"); //external module
 
 const {
+  homePageController,
   airbnbHomeController,
   getHomeDetailsController,
   postAddFavouritesController,
@@ -10,10 +11,12 @@ const {
   postFavDeleteController,
   getDeleteFromBookingsController,
   getHouseRules,
+  homePageController,
 } = require("../controller/storeController");
 
 const storeRouter = express.Router(); //cretaing the userRouter an app/server using the router functioin of express to use the router parsing .
 
+storeRouter.get("/", homePageController);
 storeRouter.get("/home", airbnbHomeController);
 storeRouter.get("/favourites", getFavouritesController);
 storeRouter.get("/bookings", getBookingsController);
