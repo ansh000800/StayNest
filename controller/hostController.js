@@ -1,6 +1,4 @@
-const path = require("path");
 const Home = require("../models/homes");
-const fs = require("fs");
 
 exports.getAddHomeController = (req, res, next) => {
   res.render("host/addHome", {
@@ -19,8 +17,8 @@ exports.postAddHomeController = (req, res, next) => {
 
   console.log(req.files);
 
-  const imagePath = imageFile.filename;
-  const documentPath = documentFile ? documentFile.filename : null;
+  const imagePath = imageFile.path;
+  const documentPath = documentFile ? documentFile.path : null;
   const home = new Home({
     houseName: req.body.homeName,
     rent: req.body.rent,
@@ -82,20 +80,11 @@ exports.postEditHomeControlller = (req, res, next) => {
       home.rating = rating;
       home.description = description;
       if (imageFile) {
-        const oldImage = path.join("uploads", home.image);
-        fs.unlink(oldImage, (err) => {
-          if (err) {
-            console.log("Error while deleting old image", err);
-          }
-        });
-        home.image = imageFile.filename;
+        home.image = imageFile.path;
       }
+
       if (documentFile) {
-        const oldDocument = path.join("rules_doc", home.document);
-        fs.unlink(oldDocument, (err) => {
-          console.log("Error while deleting the Old Document", err);
-        });
-        home.document = documentFile.filename;
+        home.document = documentFile.path;
       }
       home
         .save()

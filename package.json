@@ -23,6 +23,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.2",
+    "cloudinary": "^1.41.3",
     "connect-mongo": "^6.0.0",
     "connect-mongodb-session": "^5.0.0",
     "dotenv": "^17.3.1",
@@ -32,6 +33,7 @@
     "express-validator": "^7.3.1",
     "mongodb": "7.1",
     "mongoose": "^9.2.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^3.17.1"
   }
 }

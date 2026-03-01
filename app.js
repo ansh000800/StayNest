@@ -46,8 +46,6 @@ app.use(
 );
 
 app.use(express.static(path.join(rootDir, "public")));
-app.use("/uploads", express.static("uploads"));
-app.use("/rules_doc", express.static("rules_doc"));
 
 app.use(express.urlencoded({ extended: false }));
 

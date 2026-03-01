@@ -1,7 +1,5 @@
 const Home = require("../models/homes");
 const User = require("../models/user");
-const path = require("path");
-const rootDir = require("../utils/pathUtils");
 
 exports.homePageController = (req, res, next) => {
   console.log("session value", req.session);
@@ -10,6 +8,7 @@ exports.homePageController = (req, res, next) => {
     pageTitle: "Airbnb",
   });
 };
+
 exports.airbnbHomeController = async (req, res, next) => {
   try {
     const registeredHomes = await Home.find();
@@ -156,16 +155,14 @@ exports.getHouseRules = [
   async (req, res, next) => {
     try {
       const homeId = req.params.homeId;
-
       const home = await Home.findById(homeId);
 
       if (!home || !home.document) {
         return res.status(404).send("No rules document found");
       }
 
-      const filePath = path.join(rootDir, "rules_doc", home.document);
-
-      res.download(filePath, home.document);
+      // Redirect directly to Cloudinary PDF URL
+      return res.redirect(home.document);
     } catch (err) {
       console.log(err);
       res.status(500).send("Something went wrong");

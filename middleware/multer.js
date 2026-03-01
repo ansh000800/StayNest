@@ -1,37 +1,27 @@
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../utils/cloudinary");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
     if (file.fieldname === "image") {
-      cb(null, "uploads/");
-    } else if (file.fieldname === "document") {
-      cb(null, "rules_doc/");
+      return {
+        folder: "airbnb-app/images",
+        allowed_formats: ["jpg", "jpeg", "png"],
+      };
     }
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+
+    if (file.fieldname === "document") {
+      return {
+        folder: "airbnb-app/documents",
+        resource_type: "raw",
+        format: "pdf",
+      };
+    }
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  if (file.fieldname === "image") {
-    if (["image/jpeg", "image/png", "image/jpg"].includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error("Only images allowed"), false);
-    }
-  } else if (file.fieldname === "document") {
-    if (file.mimetype === "application/pdf") {
-      cb(null, true);
-    } else {
-      cb(new Error("Only PDF allowed"), false);
-    }
-  }
-};
-
-const upload = multer({
-  storage,
-  fileFilter,
-});
+const upload = multer({ storage });
 
 module.exports = upload;
