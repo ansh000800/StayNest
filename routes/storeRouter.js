@@ -1,7 +1,6 @@
 const express = require("express"); //external module
 
 const {
-  homePageController,
   airbnbHomeController,
   getHomeDetailsController,
   postAddFavouritesController,
