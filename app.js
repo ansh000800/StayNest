@@ -21,7 +21,6 @@ const rootDir = require("./utils/pathUtils");
 
 const { ErrorController } = require("./controller/404Controller");
 const { default: mongoose } = require("mongoose");
-const { homePageController } = require("./controller/homePageController");
 
 const app = express();
 
@@ -64,8 +63,10 @@ app.use((req, res, next) => {
 });
 
 //router parsing use;
+app.get("/", (req, res) => {
+  res.redirect("/store");
+});
 app.use(authRouter);
-app.use(homePageController);
 app.use("/store", storeRouter);
 app.use("/host", (req, res, next) => {
   if (req.session.isLoggedIn) {
@@ -86,7 +87,7 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB successfully.");
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+      console.log(`Server is running on port http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
