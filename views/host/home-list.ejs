@@ -25,7 +25,7 @@
           <p class="text-gray-600">
         Rent: ₹ <%= home.rent %>
           </p>
-          <img src="/uploads/<%= home.image %>" 
+          <img src="<%= home.image %>" 
         class="mt-2 w-full h-40 object-cover rounded shadow-lg border border-gray-300" />
           <div class="flex gap-3 mt-4">
             <a href="/host/edit-home/<%= home._id %>?editing=true" class="bg-blue-600 hover:bg-red-900 text-white font-semibold py-2 px-4 rounded transition">Edit</a>
