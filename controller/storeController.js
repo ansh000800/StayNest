@@ -14,18 +14,19 @@ exports.airbnbHomeController = async (req, res, next) => {
     const registeredHomes = await Home.find();
     const userId = req.session.user?._id;
 
-    let bookedHomes = [];
+    let cart = []; //for cart
     let favouriteHomes = [];
 
     if (userId) {
+      // for cart
       const user = await User.findById(userId);
-      bookedHomes = user.bookings.map((b) => b.toString());
+      cart = user.cart.map((b) => b.toString());
       favouriteHomes = user.favourites.map((f) => f.toString());
     }
     res.render("store/homePage", {
       registeredHomes,
       pageTitle: "Home",
-      bookedHomes,
+      cart,
       favouriteHomes,
     });
   } catch (err) {
@@ -51,19 +52,20 @@ exports.getFavouritesController = async (req, res, next) => {
   }
 };
 
-exports.getBookingsController = async (req, res, next) => {
+exports.getCartController = async (req, res, next) => {
+  //  for cart
   try {
     const userId = req.session.user._id;
-    const user = await User.findById(userId).populate("bookings");
-    res.render("store/bookings", {
-      bookedHomes: user.bookings,
-      pageTitle: "Bookings",
+    const user = await User.findById(userId).populate("cart");
+    res.render("store/cart", {
+      cart: user.cart,
+      pageTitle: "Cart",
     });
   } catch (error) {
-    console.log("Error while fetching Bookings", error);
-    res.render("store/bookings", {
-      pageTitle: "Bookings",
-      bookedHomes: [],
+    console.log("Error while fetching Cart", error);
+    res.render("store/cart", {
+      pageTitle: "Cart",
+      cart: [],
     });
   }
 };
@@ -95,18 +97,18 @@ exports.postAddFavouritesController = async (req, res, next) => {
   console.log("Added to favourites:", homeId);
 };
 
-exports.postBookingController = async (req, res, next) => {
+exports.postCartController = async (req, res, next) => {
   const homeId = req.body.id;
   const userId = req.session.user._id;
   const user = await User.findById(userId);
-  if (user.bookings.includes(homeId)) {
-    console.log("Home Already Booked.");
-    return res.redirect("/store/bookings");
+  if (user.cart.includes(homeId)) {
+    console.log("Home Already in Cart.");
+    return res.redirect("/store/cart");
   }
-  user.bookings.push(homeId);
+  user.cart.push(homeId);
   await user.save();
-  res.redirect("/store/bookings");
-  console.log("Home Booked SucessFully");
+  res.redirect("/store/cart");
+  console.log("Added to Cart.");
 };
 
 exports.postFavDeleteController = async (req, res, next) => {
@@ -126,21 +128,21 @@ exports.postFavDeleteController = async (req, res, next) => {
   }
 };
 
-exports.getDeleteFromBookingsController = async (req, res, next) => {
+exports.getDeleteFromCartController = async (req, res, next) => {
   try {
     const homeId = req.params.homeId;
     const userId = req.session.user._id;
     const user = await User.findById(userId);
-    if (user.bookings.includes(homeId)) {
-      user.bookings = user.bookings.filter((booked) => booked != homeId);
+    if (user.cart.includes(homeId)) {
+      user.cart = user.cart.filter((booked) => booked != homeId);
       await user.save();
     }
 
-    console.log("Deleted from bookings", homeId);
-    res.redirect("/store/bookings");
+    console.log("Deleted from Cart", homeId);
+    res.redirect("/store/cart");
   } catch (error) {
-    console.log("Error While Deleting From Bookings ", error);
-    res.redirect("/store/bookings");
+    console.log("Error While Deleting From Cart ", error);
+    res.redirect("/store/cart");
   }
 };
 

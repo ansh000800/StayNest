@@ -5,10 +5,10 @@ const {
   getHomeDetailsController,
   postAddFavouritesController,
   getFavouritesController,
-  postBookingController,
-  getBookingsController,
+  postCartController,
+  getCartController,
   postFavDeleteController,
-  getDeleteFromBookingsController,
+  getDeleteFromCartController,
   getHouseRules,
   homePageController,
 } = require("../controller/storeController");
@@ -18,16 +18,16 @@ const storeRouter = express.Router(); //cretaing the userRouter an app/server us
 storeRouter.get("/", homePageController);
 storeRouter.get("/home", airbnbHomeController);
 storeRouter.get("/favourites", getFavouritesController);
-storeRouter.get("/bookings", getBookingsController);
+storeRouter.get("/cart", getCartController);
 storeRouter.get("/home/:homeId", getHomeDetailsController);
 
 storeRouter.post("/favourites", postAddFavouritesController);
 
-storeRouter.post("/bookings", postBookingController);
+storeRouter.post("/cart", postCartController);
 
 storeRouter.post("/delete-fav/:homeId", postFavDeleteController);
 
-storeRouter.get("/delete-home/:homeId", getDeleteFromBookingsController);
+storeRouter.get("/delete-home/:homeId", getDeleteFromCartController);
 storeRouter.get("/rules/:homeId", getHouseRules);
 
 exports.storeRouter = storeRouter;

@@ -42,9 +42,9 @@
         <a href="/store/home/<%= home._id %>" class="mt-2 inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition">Details</a>
 
         <% if( user && user?.userType==="guest"){%>
-          <% if(!bookedHomes.includes(home._id.toString())) {%>
-            <div><form action="/store/bookings" method="POST">
-              <button type="submit" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition">Book Now</button>
+          <% if(!cart.includes(home._id.toString())) {%>
+            <div><form action="/store/cart" method="POST">
+              <button type="submit" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition">Add To Cart</button>
               <input type="hidden" name="id" value="<%= home._id %>">
 
             </form>
@@ -52,11 +52,13 @@
               <% } else { %>
             <div>
 
-            <button type="button" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition cursor-not-allowed">Already Booked</button>
+            <button type="button" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition cursor-not-allowed">Already in Cart</button>
             </div>
 
           <% } %>
         <% } %>
+
+        <button type="button" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition cursor-not-allowed">Book Now</button>
         
         </li>
       <% }) %>

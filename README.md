@@ -7,8 +7,7 @@ It allows users to explore, book, and manage rental properties with role-based a
 
 ## 🚀 Live Demo
 
-🔗 Live: https://your-live-link.onrender.com  
-📂 GitHub: https://github.com/yourusername/your-repo-name
+🔗 Live: https://staynest-1-f4l6.onrender.com  
 
 ---
 
@@ -52,6 +51,7 @@ It allows users to explore, book, and manage rental properties with role-based a
 - Express.js
 - MongoDB
 - Mongoose
+- Cloudinary
 
 ### Frontend
 
@@ -93,7 +93,7 @@ It allows users to explore, book, and manage rental properties with role-based a
 
 4. Start the server :npm start
 
-5. Open in browser: http://localhost:3000/store
+5. Open in browser: http://localhost:3000
 
 ---
 
@@ -106,7 +106,7 @@ It allows users to explore, book, and manage rental properties with role-based a
 
 ## 📌 Future Improvements
 
-- Cloud-based image storage (Cloudinary)
+- Cloud-based image storage (Cloudinary) =>Done
 - Payment integration
 - Reviews & ratings system
 - Advanced search & filtering

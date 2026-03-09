@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
       ref: "Home",
     },
   ],
-  bookings: [
+  cart: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Home",
